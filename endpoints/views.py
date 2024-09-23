@@ -15,13 +15,8 @@ from django.views.decorators.http import require_POST
 class Queimadas:
     def __init__(self, csv_path):
         self.csv_path = csv_path
-        self.df = pd.read_csv(csv_path)
+        self.df = pd.read_csv(self.csv_path, delimiter=';')
         self.pipeline = self.treinar_modelo()
-
-    def calcular_distancia2(self, ponto1, ponto2):
-        x1, y1 = ponto1
-        x2, y2 = ponto2
-        return np.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
     def calcular_distancia(self, ponto1, ponto2):
         R = 6371.0
@@ -34,8 +29,9 @@ class Queimadas:
         return R * c
 
     def encontrar_ponto_mais_proximo(self, ponto_informado):
+        print("encontrar ponto mais próximo ")
         df_fogo = self.df[self.df['Fogo'] == 1]
-        
+        print("antes do if")
         if df_fogo.empty:
             raise ValueError("Não há dados com 'Fogo' igual a 1.")
         distancias = df_fogo.apply(
@@ -49,7 +45,7 @@ class Queimadas:
 
 
     def treinar_modelo(self):
-        data_file = pd.read_csv(self.csv_path)
+        data_file = pd.read_csv(self.csv_path, delimiter=';')
         features_columns = [
             'Precipitação Total < 10mm',
             'Pressão Atmosférica entre 1015 e 1020 hPa',
@@ -87,20 +83,35 @@ class Queimadas:
         predicoes = self.pipeline.predict(X_teste)
         return predicoes
 
-
 @csrf_exempt
 @require_POST
 def ponto_mais_proximo(request):
+    print("endpoint alcançado")
+
     try:
         data = json.loads(request.body)
-        ponto_informado = (data['longitude'], data['latitude'])
+        ponto_informado = (data['latitude'], data['longitude'])
+        dados_teste = {
+            'Precipitação Total < 10mm': data['precipitacao_total'],
+            'Pressão Atmosférica entre 1015 e 1020 hPa': data['pressao_atmosferica'],
+            'Temperatura Bulbo seco ACIMA DE 30°C': data['temp_bulbo_seco'],
+            'Temperatura Pt Orvalho abaixo de 10°C': data['temp_orvalho'],
+            'Vento com velocidade maior que 30Km/h': data['velocidade_vento'],
+            'Rajada max > 10 m/s': data['rajada_max'],
+            'Umidade relativa do ar < 30%': data['umidade_relativa'],
+            'Radiação Solar acima de  4 kWh/m²': data['radiacao_solar']
+        }
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
         csv_path = os.path.join(BASE_DIR, 'bb_queimadas_Macroregião_Araraquara_v17.csv')
+        
         queimadas = Queimadas(csv_path)
         menor_distancia, ponto_proximo = queimadas.encontrar_ponto_mais_proximo(ponto_informado)
+        predicao_fogo = queimadas.testar_modelo(dados_teste)
+
         resposta = {
             'menor_distancia': menor_distancia,
-          #  'ponto_proximo': ponto_proximo.to_dict()
+            'ponto_proximo': ponto_proximo.to_dict(),
+            'predicao_fogo': predicao_fogo[0] 
         }
         return JsonResponse(resposta)
 
