@@ -1,0 +1,220 @@
+Fundamentação teórica:
+
+qui está uma versão mais detalhada sobre a Inteligência Artificial (IA), abrangendo os tipos de aprendizado.
+
+1. Inteligência Artificial (IA)
+A Inteligência Artificial refere-se à simulação de processos de inteligência humana por máquinas, especialmente sistemas computacionais. 
+Ela envolve o desenvolvimento de algoritmos e modelos que permitem que as máquinas realizem tarefas que exigiriam a intervenção de um ser humano, 
+como raciocínio, reconhecimento de padrões, resolução de problemas, aprendizado e adaptação.
+
+Principais Áreas da IA:
+Sistemas Especialistas: São sistemas que replicam o processo de tomada de decisão de um especialista humano em uma área específica. 
+Eles usam regras baseadas em conhecimento e heurísticas para tomar decisões.
+
+Processamento de Linguagem Natural (PLN): Envolve a capacidade de uma máquina de entender, interpretar e responder à linguagem
+humana de maneira significativa. É amplamente utilizado em chatbots, assistentes virtuais e traduções automáticas.
+
+Visão Computacional: Permite que uma máquina interprete e compreenda o mundo visual, como a detecção de objetos, 
+reconhecimento facial e análise de imagens.
+
+Robótica: A robótica envolve a criação de máquinas físicas ou virtuais que podem executar tarefas complexas no mundo 
+real de maneira automatizada, com autonomia e controle preciso.
+
+2. Tipos de Aprendizado na IA
+A IA também inclui a capacidade das máquinas de aprender com dados, um campo conhecido como aprendizado de máquina (machine learning). 
+Existem três categorias principais de aprendizado de máquina:
+
+a) Aprendizado Supervisionado
+Neste tipo de aprendizado, o algoritmo é treinado com um conjunto de dados rotulado, ou seja, as entradas e saídas corretas 
+são fornecidas ao modelo durante o treinamento. O objetivo é que a máquina aprenda um padrão e possa prever a saída correta para novos dados não vistos.
+
+Exemplo de Algoritmos: Regressão Linear, Regressão Logística, Árvores de Decisão, Redes Neurais.
+b) Aprendizado Não Supervisionado
+Aqui, o modelo recebe dados sem rótulos e tenta encontrar padrões ou agrupamentos dentro deles. Ele não sabe quais são as saídas corretas, 
+então o objetivo é explorar a estrutura dos dados para entender sua organização e as relações entre os exemplos.
+
+Exemplo de Algoritmos: Análise de Componentes Principais (PCA), K-Means, Algoritmo de Agrupamento Hierárquico.
+O aprendizado não supervisionado é muito útil para detecção de anomalias, agrupamento de dados e redução de dimensionalidade.
+
+c) Aprendizado por Reforço
+Neste método, o algoritmo aprende por meio de interações com o ambiente. A máquina toma decisões e recebe feedback na forma de 
+recompensas ou penalidades, com o objetivo de maximizar as recompensas ao longo do tempo. Este tipo de aprendizado é muito
+utilizado em robótica e em jogos, onde o agente (o modelo) explora ações para encontrar a melhor estratégia.
+
+Exemplo de Algoritmos: Q-Learning, Deep Q-Networks (DQN), Algoritmos Baseados em Políticas (Policy Gradient).
+3. Outras Abordagens
+Existem algumas técnicas derivadas que combinam aspectos de vários tipos de aprendizado:
+
+Aprendizado Semi-Supervisionado: Usa uma pequena quantidade de dados rotulados e uma grande quantidade de dados não rotulados 
+para melhorar a precisão do modelo. Isso é útil quando rotular dados é caro ou demorado.
+
+Aprendizado por Transferência: Aproveita o conhecimento adquirido em uma tarefa anterior para melhorar a performance em uma nova tarefa. 
+É comum em redes neurais profundas, onde os pesos aprendidos em uma rede podem ser reutilizados para tarefas semelhantes.
+
+4. Conexão com o Aprendizado Supervisionado
+O aprendizado supervisionado é especialmente eficaz quando temos grandes quantidades de dados rotulados. Ele permite que o modelo estabeleça
+correlações entre as variáveis de entrada e a saída, criando previsões ou classificações com base nos padrões aprendidos. 
+É essa categoria de aprendizado que será retomada quando falarmos sobre árvores de decisão, que são uma forma popular de aprendizado supervisionado.
+
+Escolha do tipo de aprendizado de máquina
+
+Para explicarmos o porque de nossa escolha precisamos falar um pouco sobre tipos de variáveis:
+1. Variáveis Discretas
+As variáveis discretas são aquelas que assumem valores finitos ou contáveis. Esses valores são separados uns dos 
+outros e geralmente representam contagens ou classificações. Uma característica importante das variáveis 
+discretas é que não podem assumir valores intermediários entre os valores observados.
+
+Exemplos:
+
+Número de filhos: Pode ser 0, 1, 2, mas não pode ser 1,5.
+Quantidade de itens vendidos: Pode ser 10, 15, 20, mas não pode ser 12,3.
+2. Variáveis Contínuas
+As variáveis contínuas podem assumir qualquer valor dentro de um intervalo, incluindo números fracionários. Elas são usadas para representar medições, onde qualquer valor em uma escala contínua é possível. A principal característica de variáveis contínuas é que existem infinitos valores possíveis entre quaisquer dois pontos.
+
+Exemplos:
+
+Altura de uma pessoa: Pode ser 170,2 cm, 170,25 cm, ou qualquer valor entre 170 e 171 cm.
+Temperatura: Pode ser 25,4°C, 30,1°C, etc.
+3. Variáveis Categóricas
+As variáveis categóricas, também conhecidas como qualitativas, são aquelas que representam grupos ou categorias. 
+Elas não têm um valor numérico natural e são usadas para classificar ou categorizar elementos em diferentes grupos. 
+As categorias podem ou não ter uma ordem entre si.
+
+Tipos de Variáveis Categóricas:
+Nominais: Não têm uma ordem ou hierarquia entre as categorias. Exemplo: cor dos olhos (azul, verde, castanho), gênero (masculino, feminino).
+
+Ordinais: Têm uma ordem ou hierarquia, mas a distância entre as categorias não é uniformemente mensurável. Exemplo: nível de escolaridade (fundamental, médio, superior), grau de satisfação (ruim, bom, ótimo).
+
+APRENDIZADO SUPERVISIONADO, VARIÁVEIS CATEGÓRICAS
+Em nosso caso específico em que temos tabelas de históricos de incêndio com a localização do ponto inicial, também temos as datas em que ocorreram horário, porém para que 
+podeseemos usar regressão como um modelo de aprendizagem mais completo, teriamos que ter dados como umidade relativa do ar, indice de insolação, velocidade do vento,
+rajada de vendo exatamente no ponto onde ocorreram os incêndios, e estas informações não são disponibilizadas desta forma. Uma observação simples sobre as estações de
+monitoramento atmosférico do Estado de São Paulo na região adotada mostra que são muito poucas as estações que coletam todos os dados necessários para que tenhamos as 
+informações necessárias para  usarmos um modelo com variáveis contínuas, optando assim por variáveis categóricas, adotando indices padrões onde podem ocorrer incêndios
+verificar que naquela macroregião estes indices são presentes e atribuir um valor 1 como um valor de condição necessária presente e 0 para condição necessária não presente.
+Isto nos leva a segunda parte da escolha do modelo a aplicar, como temos variáveis categógicas o Aprendizado Supervisionado, com Arvores de Classificação é o modelo
+mais adequado, até pelo fato de estarmos trabalhando em um projeto didático. Mesmo assim nas conclusões mostraremos que podemos usar este modelo para chegar a conclusões
+válidas, e que a melhora na coleta de dados, na tecnologia de abstração de novos pontos de medição podem melhorar o modelo significativamente e possibilitar o uso
+de redes neurais profundas para analise, o que pode levar a resultados excelentes, e não seria exagero dizer que se o modelo fosse adotado em elevada escala, poderia
+mitigar ao extremo os incêndios e as consequencias deles para a sociedade. Então considerando que os dados disponibilizados para os eventos não são contínuos, justificamos 
+escolha da Arvore de Decisão no Aprendizado Supervisionado.
+
+3. Árvore de Decisão
+Uma árvore de decisão é uma estrutura de ramificação usada para tomar decisões com base em uma série de perguntas com respostas "sim" ou "não" (ou valores categóricos). A árvore se forma a partir de uma divisão recursiva dos dados em subconjuntos baseados em critérios que maximizam o "ganho de informação" ou minimizam a "impureza".
+
+Cada nó da árvore representa uma decisão com base em uma variável de entrada, e cada folha representa a decisão final ou previsão (neste caso, a presença ou ausência de fogo).
+
+4. Funcionamento de uma Árvore de Decisão
+O processo de construção da árvore pode ser descrito em três etapas principais:
+
+Divisão dos Dados: O conjunto de dados é dividido repetidamente em subconjuntos menores com base em uma variável preditiva. O objetivo é criar subconjuntos o mais homogêneos possível em relação à variável alvo.
+Escolha da Melhor Divisão: Para cada divisão, o algoritmo avalia o "ganho de informação" ou a "redução de impureza", selecionando o critério que resulta na melhor separação entre as classes.
+Parada do Crescimento: O processo de divisão continua até que os nós não possam ser mais divididos ou quando o número de amostras em cada nó cai abaixo de um certo limite.
+5. Ganho de Informação
+O ganho de informação é uma medida de quanto a incerteza (ou entropia) sobre a variável alvo é reduzida ao dividir os dados com base em uma determinada variável preditiva. O ganho de informação é calculado como a diferença entre a entropia antes e depois da divisão dos dados:
+
+Ganho de Informa
+c
+¸
+a
+˜
+o
+=
+𝐻
+(
+𝑆
+)
+−
+∑
+𝑖
+∣
+𝑆
+𝑖
+∣
+∣
+𝑆
+∣
+𝐻
+(
+𝑆
+𝑖
+)
+Ganho de Informa 
+c
+¸
+​
+  
+a
+˜
+ o=H(S)− 
+i
+∑
+​
+  
+∣S∣
+∣S 
+i
+​
+ ∣
+​
+ H(S 
+i
+​
+ )
+onde 
+𝐻
+(
+𝑆
+)
+H(S) é a entropia do conjunto de dados antes da divisão e 
+𝐻
+(
+𝑆
+𝑖
+)
+H(S 
+i
+​
+ ) é a entropia dos subconjuntos resultantes.
+
+6. Índice Gini
+O índice Gini é outra métrica usada para avaliar a qualidade das divisões. Ele mede a impureza de um nó, ou seja, a probabilidade de uma amostra ser classificada incorretamente se for selecionada aleatoriamente:
+
+I
+ˊ
+ndice Gini
+=
+1
+−
+∑
+𝑘
+𝑝
+𝑘
+2
+I
+ˊ
+ ndice Gini=1− 
+k
+∑
+​
+ p 
+k
+2
+​
+ 
+onde 
+𝑝
+𝑘
+p 
+k
+​
+  é a proporção de elementos da classe 
+𝑘
+k em um determinado nó. Um índice Gini de 0 indica que o nó é "puro", ou seja, todas as amostras pertencem à mesma classe, enquanto um valor mais alto indica maior impureza.
+
+7. Critérios de Parada
+Uma árvore de decisão pode crescer até que cada folha contenha apenas um exemplo, mas isso tende a causar overfitting (ou seja, o modelo se ajusta muito aos dados de treinamento e perde a capacidade de generalização). Para evitar isso, usamos critérios de parada, como um limite mínimo de amostras em um nó ou uma profundidade máxima da árvore.
+
+8. Vantagens e Desvantagens das Árvores de Decisão
+Vantagens: Árvores de decisão são fáceis de interpretar e visualmente compreensíveis, além de não requererem normalização dos dados. Elas também são capazes de lidar com dados categóricos e contínuos.
+Desvantagens: Árvores tendem a ser sensíveis a pequenas variações nos dados (causando overfitting), e podem ser propensas a crescer excessivamente, criando modelos que são difíceis de generalizar.
