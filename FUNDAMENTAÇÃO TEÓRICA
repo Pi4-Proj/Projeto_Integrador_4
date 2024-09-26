@@ -1,0 +1,127 @@
+Fundamentação teórica:
+
+1. Inteligência Artificial (IA)
+Inteligência artificial refere-se à capacidade de máquinas realizarem tarefas que normalmente exigiriam inteligência humana, como tomada de decisão, reconhecimento de padrões e aprendizagem. No contexto de predição de incêndios, a IA pode ser usada para identificar padrões em dados meteorológicos e geográficos que indicam condições propícias para a ocorrência de incêndios.
+
+2. Aprendizado Supervisionado
+O aprendizado supervisionado é uma das abordagens de machine learning (aprendizado de máquina). Ele funciona através da alimentação de um algoritmo com um conjunto de dados rotulados (entrada e saída esperada) para que ele aprenda a mapear corretamente essas entradas para as saídas. No seu caso, o modelo é alimentado com dados que indicam se um incêndio ocorreu ou não (variável alvo), bem como variáveis ambientais como precipitação, pressão atmosférica, e outros fatores. Com isso, ele aprende a reconhecer padrões que levam à ocorrência de incêndios.
+
+3. Árvore de Decisão
+Uma árvore de decisão é uma estrutura de ramificação usada para tomar decisões com base em uma série de perguntas com respostas "sim" ou "não" (ou valores categóricos). A árvore se forma a partir de uma divisão recursiva dos dados em subconjuntos baseados em critérios que maximizam o "ganho de informação" ou minimizam a "impureza".
+
+Cada nó da árvore representa uma decisão com base em uma variável de entrada, e cada folha representa a decisão final ou previsão (neste caso, a presença ou ausência de fogo).
+
+4. Funcionamento de uma Árvore de Decisão
+O processo de construção da árvore pode ser descrito em três etapas principais:
+
+Divisão dos Dados: O conjunto de dados é dividido repetidamente em subconjuntos menores com base em uma variável preditiva. O objetivo é criar subconjuntos o mais homogêneos possível em relação à variável alvo.
+Escolha da Melhor Divisão: Para cada divisão, o algoritmo avalia o "ganho de informação" ou a "redução de impureza", selecionando o critério que resulta na melhor separação entre as classes.
+Parada do Crescimento: O processo de divisão continua até que os nós não possam ser mais divididos ou quando o número de amostras em cada nó cai abaixo de um certo limite.
+5. Ganho de Informação
+O ganho de informação é uma medida de quanto a incerteza (ou entropia) sobre a variável alvo é reduzida ao dividir os dados com base em uma determinada variável preditiva. O ganho de informação é calculado como a diferença entre a entropia antes e depois da divisão dos dados:
+
+Ganho de Informa
+c
+¸
+a
+˜
+o
+=
+𝐻
+(
+𝑆
+)
+−
+∑
+𝑖
+∣
+𝑆
+𝑖
+∣
+∣
+𝑆
+∣
+𝐻
+(
+𝑆
+𝑖
+)
+Ganho de Informa 
+c
+¸
+​
+  
+a
+˜
+ o=H(S)− 
+i
+∑
+​
+  
+∣S∣
+∣S 
+i
+​
+ ∣
+​
+ H(S 
+i
+​
+ )
+onde 
+𝐻
+(
+𝑆
+)
+H(S) é a entropia do conjunto de dados antes da divisão e 
+𝐻
+(
+𝑆
+𝑖
+)
+H(S 
+i
+​
+ ) é a entropia dos subconjuntos resultantes.
+
+6. Índice Gini
+O índice Gini é outra métrica usada para avaliar a qualidade das divisões. Ele mede a impureza de um nó, ou seja, a probabilidade de uma amostra ser classificada incorretamente se for selecionada aleatoriamente:
+
+I
+ˊ
+ndice Gini
+=
+1
+−
+∑
+𝑘
+𝑝
+𝑘
+2
+I
+ˊ
+ ndice Gini=1− 
+k
+∑
+​
+ p 
+k
+2
+​
+ 
+onde 
+𝑝
+𝑘
+p 
+k
+​
+  é a proporção de elementos da classe 
+𝑘
+k em um determinado nó. Um índice Gini de 0 indica que o nó é "puro", ou seja, todas as amostras pertencem à mesma classe, enquanto um valor mais alto indica maior impureza.
+
+7. Critérios de Parada
+Uma árvore de decisão pode crescer até que cada folha contenha apenas um exemplo, mas isso tende a causar overfitting (ou seja, o modelo se ajusta muito aos dados de treinamento e perde a capacidade de generalização). Para evitar isso, usamos critérios de parada, como um limite mínimo de amostras em um nó ou uma profundidade máxima da árvore.
+
+8. Vantagens e Desvantagens das Árvores de Decisão
+Vantagens: Árvores de decisão são fáceis de interpretar e visualmente compreensíveis, além de não requererem normalização dos dados. Elas também são capazes de lidar com dados categóricos e contínuos.
+Desvantagens: Árvores tendem a ser sensíveis a pequenas variações nos dados (causando overfitting), e podem ser propensas a crescer excessivamente, criando modelos que são difíceis de generalizar.
