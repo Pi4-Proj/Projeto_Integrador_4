@@ -1,10 +1,66 @@
 Fundamentação teórica:
 
-1. Inteligência Artificial (IA)
-Inteligência artificial refere-se à capacidade de máquinas realizarem tarefas que normalmente exigiriam inteligência humana, como tomada de decisão, reconhecimento de padrões e aprendizagem. No contexto de predição de incêndios, a IA pode ser usada para identificar padrões em dados meteorológicos e geográficos que indicam condições propícias para a ocorrência de incêndios.
+qui está uma versão mais detalhada sobre a Inteligência Artificial (IA), abrangendo os tipos de aprendizado.
 
-2. Aprendizado Supervisionado
-O aprendizado supervisionado é uma das abordagens de machine learning (aprendizado de máquina). Ele funciona através da alimentação de um algoritmo com um conjunto de dados rotulados (entrada e saída esperada) para que ele aprenda a mapear corretamente essas entradas para as saídas. No seu caso, o modelo é alimentado com dados que indicam se um incêndio ocorreu ou não (variável alvo), bem como variáveis ambientais como precipitação, pressão atmosférica, e outros fatores. Com isso, ele aprende a reconhecer padrões que levam à ocorrência de incêndios.
+1. Inteligência Artificial (IA)
+A Inteligência Artificial refere-se à simulação de processos de inteligência humana por máquinas, especialmente sistemas computacionais. 
+Ela envolve o desenvolvimento de algoritmos e modelos que permitem que as máquinas realizem tarefas que exigiriam a intervenção de um ser humano, 
+como raciocínio, reconhecimento de padrões, resolução de problemas, aprendizado e adaptação.
+
+Principais Áreas da IA:
+Sistemas Especialistas: São sistemas que replicam o processo de tomada de decisão de um especialista humano em uma área específica. 
+Eles usam regras baseadas em conhecimento e heurísticas para tomar decisões.
+
+Processamento de Linguagem Natural (PLN): Envolve a capacidade de uma máquina de entender, interpretar e responder à linguagem
+humana de maneira significativa. É amplamente utilizado em chatbots, assistentes virtuais e traduções automáticas.
+
+Visão Computacional: Permite que uma máquina interprete e compreenda o mundo visual, como a detecção de objetos, 
+reconhecimento facial e análise de imagens.
+
+Robótica: A robótica envolve a criação de máquinas físicas ou virtuais que podem executar tarefas complexas no mundo 
+real de maneira automatizada, com autonomia e controle preciso.
+
+2. Tipos de Aprendizado na IA
+A IA também inclui a capacidade das máquinas de aprender com dados, um campo conhecido como aprendizado de máquina (machine learning). 
+Existem três categorias principais de aprendizado de máquina:
+
+a) Aprendizado Supervisionado
+Neste tipo de aprendizado, o algoritmo é treinado com um conjunto de dados rotulado, ou seja, as entradas e saídas corretas 
+são fornecidas ao modelo durante o treinamento. O objetivo é que a máquina aprenda um padrão e possa prever a saída correta para novos dados não vistos.
+
+Exemplo de Algoritmos: Regressão Linear, Regressão Logística, Árvores de Decisão, Redes Neurais.
+b) Aprendizado Não Supervisionado
+Aqui, o modelo recebe dados sem rótulos e tenta encontrar padrões ou agrupamentos dentro deles. Ele não sabe quais são as saídas corretas, 
+então o objetivo é explorar a estrutura dos dados para entender sua organização e as relações entre os exemplos.
+
+Exemplo de Algoritmos: Análise de Componentes Principais (PCA), K-Means, Algoritmo de Agrupamento Hierárquico.
+O aprendizado não supervisionado é muito útil para detecção de anomalias, agrupamento de dados e redução de dimensionalidade.
+
+c) Aprendizado por Reforço
+Neste método, o algoritmo aprende por meio de interações com o ambiente. A máquina toma decisões e recebe feedback na forma de 
+recompensas ou penalidades, com o objetivo de maximizar as recompensas ao longo do tempo. Este tipo de aprendizado é muito
+utilizado em robótica e em jogos, onde o agente (o modelo) explora ações para encontrar a melhor estratégia.
+
+Exemplo de Algoritmos: Q-Learning, Deep Q-Networks (DQN), Algoritmos Baseados em Políticas (Policy Gradient).
+3. Outras Abordagens
+Existem algumas técnicas derivadas que combinam aspectos de vários tipos de aprendizado:
+
+Aprendizado Semi-Supervisionado: Usa uma pequena quantidade de dados rotulados e uma grande quantidade de dados não rotulados 
+para melhorar a precisão do modelo. Isso é útil quando rotular dados é caro ou demorado.
+
+Aprendizado por Transferência: Aproveita o conhecimento adquirido em uma tarefa anterior para melhorar a performance em uma nova tarefa. 
+É comum em redes neurais profundas, onde os pesos aprendidos em uma rede podem ser reutilizados para tarefas semelhantes.
+
+4. Conexão com o Aprendizado Supervisionado
+O aprendizado supervisionado é especialmente eficaz quando temos grandes quantidades de dados rotulados. Ele permite que o modelo estabeleça
+correlações entre as variáveis de entrada e a saída, criando previsões ou classificações com base nos padrões aprendidos. 
+É essa categoria de aprendizado que será retomada quando falarmos sobre árvores de decisão, que são uma forma popular de aprendizado supervisionado.
+
+PORQUE ESCOLHEMOS O APRENDIZADO SUPERVISIONADO
+Em nosso caso específico em que temos tabelas de históricos de incêndio com a localização do ponto inicial, também temos as datas em que ocorreram horário, podemos usar
+o Aprendizado Supervisionado para chegarmos aos resultados que esperamos.Restando ainda a decisão sobre usar regreções ou árvores de decisão.  As tabelas que o governo
+e a Defesa Civil disponibiliza
+
 
 3. Árvore de Decisão
 Uma árvore de decisão é uma estrutura de ramificação usada para tomar decisões com base em uma série de perguntas com respostas "sim" ou "não" (ou valores categóricos). A árvore se forma a partir de uma divisão recursiva dos dados em subconjuntos baseados em critérios que maximizam o "ganho de informação" ou minimizam a "impureza".
