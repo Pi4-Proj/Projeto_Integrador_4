@@ -56,11 +56,48 @@ O aprendizado supervisionado é especialmente eficaz quando temos grandes quanti
 correlações entre as variáveis de entrada e a saída, criando previsões ou classificações com base nos padrões aprendidos. 
 É essa categoria de aprendizado que será retomada quando falarmos sobre árvores de decisão, que são uma forma popular de aprendizado supervisionado.
 
-PORQUE ESCOLHEMOS O APRENDIZADO SUPERVISIONADO
-Em nosso caso específico em que temos tabelas de históricos de incêndio com a localização do ponto inicial, também temos as datas em que ocorreram horário, podemos usar
-o Aprendizado Supervisionado para chegarmos aos resultados que esperamos.Restando ainda a decisão sobre usar regreções ou árvores de decisão.  As tabelas que o governo
-e a Defesa Civil disponibiliza
+Escolha do tipo de aprendizado de máquina
 
+Para explicarmos o porque de nossa escolha precisamos falar um pouco sobre tipos de variáveis:
+1. Variáveis Discretas
+As variáveis discretas são aquelas que assumem valores finitos ou contáveis. Esses valores são separados uns dos 
+outros e geralmente representam contagens ou classificações. Uma característica importante das variáveis 
+discretas é que não podem assumir valores intermediários entre os valores observados.
+
+Exemplos:
+
+Número de filhos: Pode ser 0, 1, 2, mas não pode ser 1,5.
+Quantidade de itens vendidos: Pode ser 10, 15, 20, mas não pode ser 12,3.
+2. Variáveis Contínuas
+As variáveis contínuas podem assumir qualquer valor dentro de um intervalo, incluindo números fracionários. Elas são usadas para representar medições, onde qualquer valor em uma escala contínua é possível. A principal característica de variáveis contínuas é que existem infinitos valores possíveis entre quaisquer dois pontos.
+
+Exemplos:
+
+Altura de uma pessoa: Pode ser 170,2 cm, 170,25 cm, ou qualquer valor entre 170 e 171 cm.
+Temperatura: Pode ser 25,4°C, 30,1°C, etc.
+3. Variáveis Categóricas
+As variáveis categóricas, também conhecidas como qualitativas, são aquelas que representam grupos ou categorias. 
+Elas não têm um valor numérico natural e são usadas para classificar ou categorizar elementos em diferentes grupos. 
+As categorias podem ou não ter uma ordem entre si.
+
+Tipos de Variáveis Categóricas:
+Nominais: Não têm uma ordem ou hierarquia entre as categorias. Exemplo: cor dos olhos (azul, verde, castanho), gênero (masculino, feminino).
+
+Ordinais: Têm uma ordem ou hierarquia, mas a distância entre as categorias não é uniformemente mensurável. Exemplo: nível de escolaridade (fundamental, médio, superior), grau de satisfação (ruim, bom, ótimo).
+
+APRENDIZADO SUPERVISIONADO, VARIÁVEIS CATEGÓRICAS
+Em nosso caso específico em que temos tabelas de históricos de incêndio com a localização do ponto inicial, também temos as datas em que ocorreram horário, porém para que 
+podeseemos usar regressão como um modelo de aprendizagem mais completo, teriamos que ter dados como umidade relativa do ar, indice de insolação, velocidade do vento,
+rajada de vendo exatamente no ponto onde ocorreram os incêndios, e estas informações não são disponibilizadas desta forma. Uma observação simples sobre as estações de
+monitoramento atmosférico do Estado de São Paulo na região adotada mostra que são muito poucas as estações que coletam todos os dados necessários para que tenhamos as 
+informações necessárias para  usarmos um modelo com variáveis contínuas, optando assim por variáveis categóricas, adotando indices padrões onde podem ocorrer incêndios
+verificar que naquela macroregião estes indices são presentes e atribuir um valor 1 como um valor de condição necessária presente e 0 para condição necessária não presente.
+Isto nos leva a segunda parte da escolha do modelo a aplicar, como temos variáveis categógicas o Aprendizado Supervisionado, com Arvores de Classificação é o modelo
+mais adequado, até pelo fato de estarmos trabalhando em um projeto didático. Mesmo assim nas conclusões mostraremos que podemos usar este modelo para chegar a conclusões
+válidas, e que a melhora na coleta de dados, na tecnologia de abstração de novos pontos de medição podem melhorar o modelo significativamente e possibilitar o uso
+de redes neurais profundas para analise, o que pode levar a resultados excelentes, e não seria exagero dizer que se o modelo fosse adotado em elevada escala, poderia
+mitigar ao extremo os incêndios e as consequencias deles para a sociedade. Então considerando que os dados disponibilizados para os eventos não são contínuos, justificamos 
+escolha da Arvore de Decisão no Aprendizado Supervisionado.
 
 3. Árvore de Decisão
 Uma árvore de decisão é uma estrutura de ramificação usada para tomar decisões com base em uma série de perguntas com respostas "sim" ou "não" (ou valores categóricos). A árvore se forma a partir de uma divisão recursiva dos dados em subconjuntos baseados em critérios que maximizam o "ganho de informação" ou minimizam a "impureza".
