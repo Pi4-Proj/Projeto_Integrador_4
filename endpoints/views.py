@@ -125,28 +125,66 @@ class Queimadas:
             self._radiacao_solar_acima_4_kWh_m2 = value
 
 
+
+
+
     def calcular_distancia(self, ponto1, ponto2):
-        R = 6371.0
-        lat1, lon1 = np.deg2rad(ponto1)
-        lat2, lon2 = np.deg2rad(ponto2)
-        dlat = lat2 - lat1
-        dlon = lon2 - lon1
-        a = np.sin(dlat / 2) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlon / 2) ** 2
+        Raio_da_terra = 6371  # Raio da Terra em quilômetros
+        
+        # Converter latitudes e longitudes de graus para radianos
+        lat1, lon1 = np.deg2rad(ponto1)  # ponto1 deve ser (latitude1, longitude1)
+        lat2, lon2 = np.deg2rad(ponto2)  # ponto2 deve ser (latitude2, longitude2)
+        
+        # Ajustar sinais
+        lon1 = -abs(lon1)  # Longitude negativa
+        lon2 = -abs(lon2)  # Longitude negativa
+        
+        # Diferenças em radianos
+        dLat = lat2 - lat1
+        dLon = lon2 - lon1
+        
+        # Fórmula de Haversine
+        a = np.sin(dLat / 2) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin(dLon / 2) ** 2
         c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
-        return R * c
+        
+        # Distância
+        distancia = Raio_da_terra * c
+        return distancia
+
+
+
+
+
+
 
     def encontrar_ponto_mais_proximo(self, ponto_informado):
         df_fogo = self.df[self.df['Fogo'] == 1]
         if df_fogo.empty:
             raise ValueError("Não há dados com 'Fogo' igual a 1.")
+
+        # Calcular as distâncias para cada ponto com Fogo = 1
         distancias = df_fogo.apply(
-            lambda row: self.calcular_distancia(ponto_informado, (row['longitude'], row['latitude'])),
+            lambda row: self.calcular_distancia(ponto_informado, (row['latitude'], row['longitude'])),
             axis=1
         )
+
+        # Adicionar a coluna de distâncias ao DataFrame
+        df_fogo['Distância'] = distancias
+
+        # Exibir todas as latitudes, longitudes e distâncias
+        print("Pontos com Fogo = 1 e suas distâncias:")
+        for index, row in df_fogo.iterrows():
+            print(f"Index: {index}, Latitude: {row['latitude']}, Longitude: {row['longitude']}, Distância: {row['Distância']:.2f} km")
+
+        # Encontrar o ponto mais próximo
         indice_mais_proximo = distancias.idxmin()
         menor_distancia = distancias.min()
         ponto_proximo = df_fogo.loc[indice_mais_proximo]
+
         return menor_distancia, ponto_proximo
+
+
+
 
 
     def treinar_modelo(self):
@@ -209,25 +247,33 @@ def ponto_mais_proximo(request):
     try:
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
         csv_path = os.path.join(BASE_DIR, 'bb_queimadas_Macroregião_Araraquara_v17.csv')
+        
+        # Cria uma nova instância a cada requisição
         queimadas = Queimadas(csv_path)
+        
         data = json.loads(request.body)
 
         # Verificações e atribuições
         queimadas.latitude = data['latitude']
         queimadas.longitude = data['longitude']
+        
         ponto_informado = (data['latitude'], data['longitude'])
-
-        queimadas.precipitacao_total_menos_10mm = 1 if data['Precipitação Total < 10mm'] < 10 else 0
-        queimadas.pressao_atmosferica_entre_1015_1020_hPa = 1 if 1015 <= data['Pressão Atmosférica entre 1015 e 1020 hPa'] <= 1020 else 0
-        queimadas.temperatura_bulbo_seco_acima_30C = 1 if data['Temperatura Bulbo seco ACIMA DE 30°C'] > 30 else 0
-        queimadas.temperatura_pt_orvalho_abaixo_10C = 1 if data['Temperatura Pt Orvalho abaixo de 10°C'] < 10 else 0
-        queimadas.vento_maior_30Km_h = 1 if data['Vento com velocidade maior que 30Km/h'] > 30 else 0
-        queimadas.rajada_max_mais_10_m_s = 1 if data['Rajada max > 10 m/s'] > 10 else 0
-        queimadas.umidade_relativa_abaixo_30 = 1 if data['Umidade relativa do ar < 30%'] < 30 else 0
-        queimadas.radiacao_solar_acima_4_kWh_m2 = 1 if data['Radiação Solar acima de  4 kWh/m²'] > 4 else 0
+        
+        # Ajuste para usar os nomes corretos
+        queimadas.precipitacao_total_menos_10mm = 1 if data['precipitacao_total'] < 10 else 0
+        queimadas.pressao_atmosferica_entre_1015_1020_hPa = 1 if 1015 <= data['pressao_atmosferica'] <= 1020 else 0
+        queimadas.temperatura_bulbo_seco_acima_30C = 1 if data['temp_bulbo_seco'] > 30 else 0
+        queimadas.temperatura_pt_orvalho_abaixo_10C = 1 if data['temp_orvalho'] < 10 else 0
+        queimadas.vento_maior_30Km_h = 1 if data['velocidade_vento'] > 30 else 0
+        queimadas.rajada_max_mais_10_m_s = 1 if data['rajada_max'] > 10 else 0
+        queimadas.umidade_relativa_abaixo_30 = 1 if data['umidade_relativa'] < 30 else 0
+        queimadas.radiacao_solar_acima_4_kWh_m2 = 1 if data['radiacao_solar'] > 4 else 0
 
         menor_distancia, ponto_proximo = queimadas.encontrar_ponto_mais_proximo(ponto_informado)
-        predicao_fogo = queimadas.testar_modelo()  # Removido argumento
+        predicao_fogo = queimadas.testar_modelo()
+        
+
+
         resposta = {
             'menor_distancia': menor_distancia,
             'ponto_proximo': ponto_proximo.to_dict(),
